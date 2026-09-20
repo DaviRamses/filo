@@ -1,0 +1,463 @@
+/* ============================================================
+   TEMA — +200 Dinâmicas de Filosofia
+   Paleta tirada da arte de referência: azul royal + dourado,
+   fundo azul-céu e verde nos "check". Carregado DEPOIS do
+   global.css, então tudo aqui vence o estilo original.
+   ============================================================ */
+
+:root {
+  --gold: #ffc61a;        /* amarelo dourado dos títulos da arte */
+  --gold-deep: #f0a500;   /* sombra/borda do dourado */
+  --gold-ink: #0a2f8f;    /* azul escuro para texto SOBRE dourado */
+  --royal: #1544c4;       /* azul royal (mesmo do --store-primary) */
+  --royal-deep: #0d2f96;  /* azul mais fundo, para bordas e sombras */
+  --sky: #e6f2fe;         /* azul-céu claro dos fundos */
+  --sky-soft: #f3f9ff;    /* céu ainda mais claro */
+  --grass: #22c55e;       /* verde dos check da arte */
+}
+
+/* ---------- Fundo geral: céu suave no lugar dos cinzas ---------- */
+body { background: var(--sky-soft); }
+
+#hero {
+  background: linear-gradient(180deg, var(--sky) 0%, #ffffff 100%) !important;
+}
+#benefits,
+#social-proof,
+#faq {
+  background: var(--sky-soft) !important;
+}
+#bonuses {
+  background: linear-gradient(180deg, var(--sky) 0%, #ffffff 100%) !important;
+}
+
+/* ---------- Botões: dourado com texto azul, como a pílula da arte ---------- */
+.btn-gradient {
+  background: linear-gradient(180deg, #ffd34d 0%, var(--gold) 55%, var(--gold-deep) 100%) !important;
+  color: var(--gold-ink) !important;
+  border-bottom: 4px solid var(--gold-deep) !important;
+  border-radius: 999px !important;
+  font-weight: 900 !important;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
+  box-shadow: 0 6px 18px rgba(240, 165, 0, .38) !important;
+}
+.btn-gradient:hover {
+  background: linear-gradient(180deg, #ffdc6b 0%, #ffcb2e 55%, var(--gold-deep) 100%) !important;
+  box-shadow: 0 10px 26px rgba(240, 165, 0, .5) !important;
+}
+
+/* ---------- Barra de oferta do topo ---------- */
+#announcement-bar {
+  background: linear-gradient(135deg, var(--royal-deep) 0%, var(--royal) 55%, #2a6ae8 100%) !important;
+  border-bottom: 3px solid var(--gold);
+}
+
+/* ---------- Preço em destaque ---------- */
+#hero-price,
+#footer-savings,
+#hero-savings {
+  letter-spacing: -.01em;
+}
+
+/* ---------- Selos "GRÁTIS" e economia: verde da arte ---------- */
+.text-green-600,
+.text-green-500 { color: #16a34a !important; }
+.text-green-400 { color: #4ade80 !important; }
+
+/* ---------- Cartões: cantos mais redondos, ar de material didático ---------- */
+#bonuses .rounded-xl,
+#benefits .rounded-xl,
+#pain-points .rounded-xl {
+  border-radius: 1.1rem;
+}
+
+/* ---------- Títulos de seção: faixa dourada sob o texto ---------- */
+.benefits-title,
+[data-field="bonuses_title"],
+[data-field="pain_points_title"],
+[data-field="social_proof.title"] {
+  position: relative;
+  display: inline-block;
+}
+.benefits-title::after,
+[data-field="bonuses_title"]::after,
+[data-field="pain_points_title"]::after,
+[data-field="social_proof.title"]::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: -.28em;
+  height: .26em;
+  border-radius: 999px;
+  background: var(--gold);
+  opacity: .75;
+}
+
+/* ---------- Seções escuras: azul da noite, não cinza ---------- */
+#price-summary { background: #0c1f52 !important; }
+#how-it-works  { background: #08183f !important; }
+
+/* ============================================================
+   CARRINHO → CHECKOUT TILIM
+   O input #upsells-flow está como "inline", então todo CTA vai
+   DIRETO para window.CHECKOUT_URL (Tilim) e o carrinho nem abre.
+   As regras abaixo são só por precaução: se alguém mudar o fluxo
+   para "modal", o carrinho viria com upsells e cupom que o Tilim
+   não cobra — prometendo ao comprador algo que a cobrança não
+   cumpre. Ocultá-los evita isso.
+   Para usar order bump de verdade: configure os itens no painel
+   do Tilim, não aqui.
+   ============================================================ */
+
+/* upsells "Melhore sua compra" dentro do carrinho */
+#cart-modal .upsell-item { display: none !important; }
+#cart-modal .upsell-item + p,
+#cart-modal p:has(+ .upsell-item) { display: none !important; }
+
+/* modal "ESPERE! 10% de desconto extra" — o Tilim não aplica esse cupom */
+#insistence-overlay { display: none !important; }
+
+/* ============================================================
+   BARRA FIXA INFERIOR — removida a pedido.
+   O elemento continua no HTML porque o JS o referencia; ocultar
+   evita mexer no script e quebrar o resto.
+   ============================================================ */
+#sticky-cta { display: none !important; }
+
+/* ============================================================
+   CARD DE PREÇO DO TOPO
+   Mostra o preço de entrada (R$ 9,90) e manda para os planos.
+   Os bônus listados ali são do Plano Completo — o rótulo abaixo
+   deixa isso explícito para não prometer o que o Básico não dá.
+   ============================================================ */
+.hero-apartir {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #8a97b3;
+  margin: 0 0 .1rem;
+}
+.hero-bonus-titulo {
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--royal);
+  margin: .2rem 0 .5rem;
+  padding-top: .7rem;
+  border-top: 1px dashed #d8e3f5;
+}
+
+/* rolagem suave até a seção de planos */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+#price-summary { scroll-margin-top: 1rem; }
+
+/* ============================================================
+   PLANO BÁSICO — card que fica ACIMA do card do Plano Completo,
+   dentro da própria seção #price-summary (fundo azul-noite).
+   Classes próprias: o global.css é Tailwind com purge, então
+   classes novas do Tailwind não existiriam nele.
+   ============================================================ */
+
+.pb-card {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(255, 255, 255, .13);
+  border-radius: 1rem;
+  padding: 1.5rem 1.4rem 1.4rem;
+  margin-bottom: 1.1rem;
+}
+.pb-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem .9rem;
+  margin-bottom: .2rem;
+}
+.pb-nome {
+  font-size: 1.05rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #cfe0ff;
+  margin: 0;
+}
+.pb-preco { display: flex; align-items: baseline; gap: .35rem; }
+.pb-de {
+  font-size: .95rem;
+  color: #8fa3c8;
+  text-decoration: line-through;
+  text-decoration-color: rgba(229, 72, 77, .9);
+}
+.pb-valor { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+.pb-desc { color: #8fa3c8; font-size: .88rem; margin: 0 0 1.1rem; }
+
+.pb-lista { list-style: none; margin: 0; padding: 0; }
+.pb-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  font-size: .92rem;
+  line-height: 1.45;
+  color: #dbe6f7;
+  padding: .3rem 0;
+}
+.pb-lista li::before {
+  content: "✓";
+  flex-shrink: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  margin-top: .12rem;
+  border-radius: 50%;
+  background: var(--grass);
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* o que o Básico NÃO inclui: X, riscado e esmaecido */
+.pb-nao-titulo {
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #7286ab;
+  margin: 1rem 0 .1rem;
+  padding-top: .9rem;
+  border-top: 1px dashed rgba(255, 255, 255, .13);
+}
+.pb-lista--nao li {
+  color: #9fb0cc;
+  opacity: .5;
+  text-decoration: line-through;
+  text-decoration-color: rgba(159, 176, 204, .8);
+}
+.pb-lista--nao li::before {
+  content: "✕";
+  background: rgba(255, 255, 255, .18);
+  color: #e8eefb;
+  text-decoration: none;
+}
+
+/* É um <button>, não um <a>: ele abre o popup em vez de navegar. Isso
+   também o tira da regra "Contém URL" da UTMify, que dispararia um
+   InitiateCheckout aqui e outro ao escolher dentro do popup.
+   Por ser <button>, precisa zerar borda e herdar a fonte do navegador. */
+.pb-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  padding: .85rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: #22c55e;
+  color: #fff;
+  border-bottom: 4px solid #16a34a;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, .3);
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+.pb-btn:hover { background: #1eb455; transform: translateY(-2px); }
+.pb-btn:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* selo "Plano Completo" no card que já existia */
+.pc-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--gold);
+  color: var(--gold-ink);
+  font-weight: 900;
+  font-size: .72rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+.pc-selo::before { content: "★"; }
+
+/* ============================================================
+   POPUP DE UPSELL — aparece ao clicar em "Comprar agora" do
+   Plano Básico. Oferece migrar para o Completo por R$ 10 a mais
+   (R$ 19,90), usando o link de upsell do Tilim.
+   ============================================================ */
+.up-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: rgba(8, 20, 48, .72);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+.up-overlay[hidden] { display: none !important; }
+
+.up-box {
+  position: relative;
+  background: #fff;
+  border-radius: 1.25rem;
+  max-width: 25rem;
+  width: 100%;
+  padding: 2rem 1.6rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
+  animation: up-entra .26s cubic-bezier(.2, .9, .3, 1.1);
+}
+@keyframes up-entra {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .up-box { animation: none; } }
+
+.up-fechar {
+  position: absolute;
+  top: .6rem;
+  right: .7rem;
+  width: 2rem;
+  height: 2rem;
+  border: 0;
+  background: transparent;
+  color: #9aa6bf;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background .15s ease, color .15s ease;
+}
+.up-fechar:hover { background: #f1f5fb; color: #46536e; }
+.up-fechar:focus-visible { outline: 3px solid var(--royal); outline-offset: 2px; }
+
+.up-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  background: #fff4cc;
+  color: #7a5200;
+  font-weight: 900;
+  font-size: .68rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: .38rem .85rem;
+  border-radius: 999px;
+  margin: 0 0 .9rem;
+}
+.up-badge::before { content: "★"; color: var(--gold-deep); }
+
+.up-titulo {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #16203a;
+  margin: 0 0 .5rem;
+  line-height: 1.2;
+}
+.up-titulo span { color: var(--royal); }
+
+.up-sub {
+  color: #5b6b8c;
+  font-size: .92rem;
+  line-height: 1.5;
+  margin: 0 0 1.3rem;
+}
+.up-sub strong { color: #16203a; font-weight: 800; }
+
+.up-lista {
+  list-style: none;
+  margin: 0 0 1.4rem;
+  padding: 1rem 1rem .8rem;
+  background: #f7f9fd;
+  border: 1px solid #e9eff8;
+  border-radius: .85rem;
+  text-align: left;
+}
+.up-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  font-size: .93rem;
+  line-height: 1.45;
+  color: #2a3654;
+  padding: .3rem 0;
+}
+.up-lista li::before {
+  content: "✓";
+  flex-shrink: 0;
+  color: var(--grass);
+  font-weight: 900;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+.up-lista strong { font-weight: 800; color: #16203a; }
+
+.up-precos {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: .55rem;
+  margin: 0 0 1.1rem;
+}
+.up-de {
+  color: #9aa6bf;
+  font-size: .95rem;
+  text-decoration: line-through;
+}
+.up-por {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: var(--royal);
+  line-height: 1;
+}
+
+.up-btn {
+  display: block;
+  text-decoration: none;
+  background: #22c55e;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  padding: .95rem 1rem;
+  border-radius: .75rem;
+  border-bottom: 4px solid #16a34a;
+  box-shadow: 0 6px 18px rgba(34, 197, 94, .35);
+  transition: transform .18s ease, background .18s ease;
+}
+.up-btn:hover { background: #1eb455; transform: translateY(-2px); }
+.up-btn:focus-visible { outline: 3px solid var(--royal); outline-offset: 3px; }
+
+.up-recusar {
+  display: inline-block;
+  margin-top: .9rem;
+  color: #9aa6bf;
+  font-size: .82rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color .15s ease;
+}
+.up-recusar:hover { color: #64728f; }
+.up-recusar:focus-visible { outline: 2px solid var(--royal); outline-offset: 2px; }
+
+/* ---------- Acessibilidade: foco visível no dourado ---------- */
+.btn-gradient:focus-visible {
+  outline: 3px solid var(--royal);
+  outline-offset: 3px;
+}
